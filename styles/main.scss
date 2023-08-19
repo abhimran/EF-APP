@@ -1,0 +1,487 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Kanit:wght@400;500;600;700&display=swap");
+
+// common styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-family: "Kanit", sans-serif;
+  background: #272727;
+}
+
+// container styles
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.container-fluid {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// breakpoints style
+
+$breakpoints: (
+  xsmall: 350px,
+  small: 576px,
+  medium: 768px,
+  large: 992px,
+  xlarge: 1200px,
+);
+
+@function breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $width: map-get($breakpoints, $breakpoint);
+    @return "(min-width: #{$width})";
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}. Please define it in $breakpoints.";
+    @return null;
+  }
+}
+
+@mixin respond-to($breakpoint) {
+  $media-query: breakpoint($breakpoint);
+
+  @if $media-query {
+    @media #{$media-query} {
+      @content;
+    }
+  }
+}
+
+// common utility classes
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.me-1 {
+  margin-right: 8px;
+}
+.me-2 {
+  margin-right: 16px;
+}
+.me-4 {
+  margin-right: 32px;
+}
+.mx-1 {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.mt-1 {
+  margin-top: 8px;
+}
+.mt-2 {
+  margin-top: 16px;
+}
+.mt-3 {
+  margin-top: 24px;
+}
+.mt-4 {
+  margin-top: 32px;
+}
+.mb-2 {
+  margin-bottom: 16px;
+}
+.ms-2 {
+  margin-left: 16px;
+}
+
+.color-white {
+  color: #ffffff;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Mixins flex
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// regular class start
+
+.ef-main {
+  .ef-bg {
+    background: url("/images/background.jpg");
+    background-size: cover;
+    background-position: top center;
+    height: 600px;
+    background-repeat: no-repeat;
+    clip-path: polygon(0 0, 100% 0, 100% 96%, 0 85%);
+
+    .ef-topbar {
+      .topbar-menus {
+        .menu-bottom {
+          position: relative;
+          .menu-bottom-main {
+            background: linear-gradient(135deg, #013a58, #2f8d9b);
+            padding: 20px 80px 20px 30px;
+            color: #ffffff;
+            border-radius: 30px;
+            display: flex;
+
+            .menu-bottom-item {
+              .dropdown-box {
+                position: absolute;
+                height: 390px;
+                width: 100%;
+                top: 80px;
+                left: 0;
+                border-radius: 15px;
+                padding: 30px;
+                background: rgba(53, 76, 83, 0.7);
+                backdrop-filter: blur(10px);
+                transition: 0.3s;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.3s ease-in;
+
+                .box-title {
+                  color: #fff;
+                  @include flex(row, space-between, center);
+                  background: rgba($color: #527178, $alpha: 0.4);
+                  padding: 10px 14px;
+                  border-radius: 5px;
+                }
+
+                .box-content {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+
+                  .box-content-item {
+                    display: flex;
+                    align-items: center;
+                    transition: 0.3s ease-in;
+                    padding: 4px 10px;
+                    cursor: pointer;
+
+                    .item-img {
+                      height: 40px;
+                      width: 40px;
+
+                      img {
+                        height: 100%;
+                        width: 100%;
+                      }
+                    }
+
+                    .item-img-2 {
+                      height: 60px;
+                      width: 120px;
+
+                      img {
+                        height: 100%;
+                        width: 100%;
+                      }
+                    }
+
+                    .item-title {
+                      color: #fff;
+                    }
+                    .item-title-2 {
+                      color: #fff;
+                      text-align: center;
+                    }
+
+                    &:hover:not(.not-hover) {
+                      background: rgba($color: #656e6c, $alpha: 0.5);
+                      border-radius: 25px;
+                    }
+                  }
+                }
+              }
+              &:hover {
+                &:after {
+                  content: "";
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  top: 0;
+                  height: 70px;
+                }
+                .dropdown-box {
+                  visibility: visible;
+                  opacity: 1;
+                }
+              }
+            }
+          }
+          .search-icon {
+            @include flex(column, center, center);
+            background: #fe6e08;
+            height: 58px;
+            width: 58px;
+            color: #fff;
+            border-radius: 58px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+          }
+
+          .search-container {
+            display: none;
+            align-items: center;
+            position: relative;
+            width: 625px;
+
+            #searchInput {
+              padding: 21px 30px;
+              background: linear-gradient(to right, #ff7504, #fe491b);
+              border: none;
+              border-radius: 5px;
+              color: white;
+              font-size: 14px;
+              position: relative;
+              width: 100%;
+              border-radius: 30px;
+
+              &::placeholder {
+                color: #fea25c;
+              }
+
+              &:focus {
+                border: none;
+                outline: none;
+              }
+            }
+
+            .advance-search {
+              position: absolute;
+              right: 50px;
+              top: 18px;
+              color: #fff;
+            }
+
+            .close-icon {
+              margin-left: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+
+        @include respond-to(xsmall) {
+          display: none;
+        }
+
+        @include respond-to(small) {
+          display: none;
+        }
+
+        @include respond-to(large) {
+          display: block;
+        }
+      }
+    }
+
+    .ef-body {
+      margin: 120px 0;
+      .ef-body-small-text {
+        background: #33393d;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: #fff;
+
+        @include respond-to(xsmall) {
+          padding: 4px 10px;
+          font-size: 12px;
+        }
+
+        @include respond-to(small) {
+          padding: 4px 10px;
+          font-size: 12px;
+        }
+
+        @include respond-to(medium) {
+          padding: 6px 14px;
+          font-size: 14px;
+        }
+
+        @include respond-to(large) {
+          padding: 10px 20px;
+          font-size: 16px;
+        }
+      }
+
+      .ef-body-title {
+        font-size: 45px;
+        color: #fff;
+
+        @include respond-to(xsmall) {
+          font-size: 30px;
+        }
+
+        @include respond-to(small) {
+          font-size: 30px;
+        }
+
+        @include respond-to(medium) {
+          font-size: 35px;
+        }
+
+        @include respond-to(large) {
+          font-size: 45px;
+        }
+      }
+
+      .ef-body-pricing {
+        font-size: 50px;
+        color: #fff;
+
+        @include respond-to(xsmall) {
+          font-size: 34px;
+        }
+
+        @include respond-to(small) {
+          font-size: 34px;
+        }
+
+        @include respond-to(medium) {
+          font-size: 40px;
+        }
+      }
+    }
+  }
+
+  .ef-trending {
+    .ef-trending-heading {
+      @include flex(row, space-between, center);
+      color: #fff;
+      margin-bottom: 20px;
+
+      .view-all-btn {
+        border: 1px solid #c1bdbd;
+        padding: 5px;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .txt-tranding {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+    .box-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-wrap: wrap;
+
+      .box {
+        width: calc(33.33% - 20px);
+
+        @include respond-to(xsmall) {
+          width: calc(100% - 20px);
+        }
+
+        @include respond-to(small) {
+          width: calc(100% - 20px);
+        }
+
+        @include respond-to(medium) {
+          width: calc(50% - 20px);
+        }
+
+        @include respond-to(large) {
+          width: calc(33.33% - 20px);
+        }
+
+        &__image {
+          width: 100%;
+          height: 250px;
+          position: relative;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+          }
+
+          .img-btn {
+            z-index: 99;
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+          }
+        }
+
+        &__title {
+          @include flex(row, space-between, center);
+          margin-top: 10px;
+          font-size: 18px;
+          color: #333;
+          margin-top: 15px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// Common btn
+.skew-btn {
+  position: relative;
+  width: 60px;
+  height: 40px;
+  color: white;
+  display: flex;
+  align-items: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    background: #ff5814;
+    transform: skewX(15deg);
+    z-index: -1;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -13px;
+    width: 40px;
+    height: 100%;
+    border-radius: 10px;
+    background: #ff5814;
+    z-index: -1;
+  }
+}
